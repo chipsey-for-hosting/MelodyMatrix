@@ -1,0 +1,13 @@
+.spline {
+  height: 100vh !important;
+}
+
+.content {
+  position: absolute !important;
+  top: 20vh !important;
+  z-index: 100 !important;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  text-align: center;
+  color: rgb(133, 133, 133);
+}

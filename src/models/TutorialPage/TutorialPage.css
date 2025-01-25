@@ -1,0 +1,68 @@
+#piano {
+  display: flex;
+  position: fixed;
+  bottom: -0rem;
+}
+
+#pianoRoll {
+  position: fixed;
+  width: 100vw;
+  z-index: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column-reverse;
+  background: rgba(68, 68, 68, 0);
+  color: white;
+}
+
+.controllers {
+  position: absolute;
+  z-index: 10;
+  top: 5rem;
+  display: grid;
+  gap: 1rem;
+  color: aliceblue;
+}
+
+.invisible-option {
+  opacity: 0.4;
+  transition: all 500ms ease !important;
+}
+
+.invisible-option:hover {
+  opacity: 1;
+}
+
+.key {
+  z-index: 2;
+  height: 10rem;
+}
+
+.white {
+  background-color: rgb(152, 152, 152);
+  position: relative;
+  z-index: 2;
+}
+
+.black {
+  background-color: black;
+  z-index: 3;
+  height: 6rem;
+}
+
+.tutorial-background {
+  position: fixed;
+  top: 45vh;
+  background-image: radial-gradient(rgb(21, 0, 50), rgb(0, 0, 0), rgb(0, 0, 0));
+  width: 100vw;
+  height: 100vh;
+}
+
+@keyframes fallAnimation {
+  0% {
+    top: -100px; /* Start above the screen */
+  }
+  100% {
+    top: 100%; /* End at the bottom of the screen */
+  }
+}

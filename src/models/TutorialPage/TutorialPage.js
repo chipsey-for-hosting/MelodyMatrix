@@ -32,6 +32,7 @@ const TutorialPage = ({ midis }) => {
     },
   });
   const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight);
   const noteWidth = screenWidth / 57;
   const [leftNotes, setLeftNotes] = useState(null);
   const [rightNotes, setRightNotes] = useState(null);
@@ -47,6 +48,7 @@ const TutorialPage = ({ midis }) => {
   const [instrument, setInstrument] = useState("sine");
   const [leftChannel, setLeftChannel] = useState(0);
   const [rightChannel, setRightChannel] = useState(1);
+  const [baseHeight, setBaseHeight] = useState();
 
   const playNote = (note, duration, time) => {
     try {
@@ -70,6 +72,12 @@ const TutorialPage = ({ midis }) => {
       console.error("Error playing note:", error.message);
     }
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+    setBaseHeight(screenHeight / 7);
+    setIsLoading(false);
+  }, [screenHeight]);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -166,7 +174,10 @@ const TutorialPage = ({ midis }) => {
         <div>
           <div className="tutorial-background"></div>
           <section id="pianoRoll">
-            <div className="controllers ml-2">
+            <div
+              className="controllers ml-2"
+              style={{ maxHeight: screenHeight / 1.4 }}
+            >
               <Button
                 variant="outlined"
                 startIcon={isPlaying ? <PauseIcon /> : <PlayArrowIcon />}
@@ -348,15 +359,15 @@ const TutorialPage = ({ midis }) => {
                 </>
               )}
             </div>
-            <div style={{ height: "150vh" }}></div>
+            <div style={{ height: "100vh" }}></div>
             {leftNotes?.length > 0 &&
               leftNotes.map((note, index) => {
                 const startY = note.time * timeUnit + 1000;
                 const height = note.duration * timeUnit;
                 const startX = getNoteYPosition(note.midi);
                 if (
-                  startY - totalDistance < 640 &&
-                  startY - totalDistance > 600 &&
+                  startY - totalDistance < baseHeight &&
+                  startY - totalDistance > baseHeight - 20 &&
                   index > currentLeftNoteIndex
                 ) {
                   setCurrentLeftNoteIndex(index);
@@ -403,8 +414,8 @@ const TutorialPage = ({ midis }) => {
                 const startX = getNoteYPosition(note.midi);
 
                 if (
-                  startY - totalDistance < 640 &&
-                  startY - totalDistance > 600 &&
+                  startY - totalDistance < baseHeight &&
+                  startY - totalDistance > baseHeight - 20 &&
                   index > currentRightNoteIndex
                 ) {
                   setCurrentRightNoteIndex(index);
@@ -475,12 +486,19 @@ const TutorialPage = ({ midis }) => {
                       borderBottomLeftRadius: "0.2rem",
                       borderBottomRightRadius: "0.2rem",
                       borderTop: "2px solid grey",
+                      height:
+                        note?.color === "black"
+                          ? screenHeight / 10
+                          : baseHeight,
                     }}
                   >
                     <div
                       style={{
                         position: "relative",
-                        top: note?.color === "black" ? "4rem" : "8rem",
+                        top:
+                          note?.color === "black"
+                            ? screenHeight / 20
+                            : screenHeight / 9,
                         color: note?.color === "black" ? "grey" : "black",
                         fontWeight: "bold",
                       }}

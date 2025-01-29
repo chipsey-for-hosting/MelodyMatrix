@@ -22,6 +22,9 @@
   display: grid;
   gap: 1rem;
   color: aliceblue;
+  overflow: scroll;
+  scrollbar-width: thin; /* Options: auto, thin, none */
+  scrollbar-color: rgba(42, 42, 42, 0.5) rgba(104, 104, 104, 0); /* Thumb color and track color */
 }
 
 .invisible-option {
@@ -35,7 +38,6 @@
 
 .key {
   z-index: 2;
-  height: 10rem;
 }
 
 .white {
